@@ -136,9 +136,9 @@ def filter_file_content(filepath, target_langs):
                 filtered_lines.append(line)
             continue
 
-        # Check if we hit a non-language heading (##, ###, ####) which ends the current section
-        stripped = line.strip()
-        if stripped.startswith('#'):
+        # Check if we hit a non-language heading (##, ###, etc) which ends the current section
+        # Markdown headings have at most 3 spaces before the #
+        if re.match(r'^\s{0,3}#+\s+', line):
             # Any heading ends the current language section
             skipping = False
             current_lang_section = None
